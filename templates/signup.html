@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+</head>
+<body>
+<div class="mb3">
+<div class="form-group">
+    <label >Email</label>
+    <input type="email" class="form-control" id="email" placeholder="Your email">
+</div>
+<div class="form-group">
+    <label >Email</label>
+    <input type="text" class="form-control" id="name" placeholder="Your name">
+</div>
+<div class="form-group">
+    <label >Email</label>
+    <input type="password" class="form-control" id="password" placeholder="Password">
+</div>
+    <button class="btn btn-primary" onclick="submit_entry();">Register</button>
+</div>
+<script>
+    function submit_entry() {
+        let email = document.getElementById('email');
+        let name = document.getElementById('name');
+        let password = document.getElementById('password');
+
+        let entry = {
+            email: email.value,
+            name: name.value,
+            password: password.value
+        };
+
+        fetch(`${window.origin}/signup/submit`, {
+            method : "POST",
+            credentials : "include",
+            body : JSON.stringify(entry),
+            cache : "no-cache",
+            headers : new Headers({
+                "content-type": "application/json"
+            })
+        })
+        .then(function (response) {
+            if (response.status !== 200) {
+                console.log(`Response status was not 200: ${response.status}`);
+                return;
+            }
+
+            response.json().then(function (data) {
+
+                console.log(data)
+
+            })
+
+        })
+
+    }
+</script>
+</body>
+</html>
